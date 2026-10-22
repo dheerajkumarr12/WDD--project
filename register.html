@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"><title>GymSphere - Add Member</title><link rel="stylesheet" href="style.css"></head>
+<body>
+<div class="app">
+  <div class="sidebar">
+    <img src="logo.png" alt="GymSphere">
+    <a href="index.html">🏠 Dashboard</a>
+    <a href="register.html" class="active">📝 Add Member</a>
+    <a href="members.html">👥 All Members</a>
+    <a href="payments.html">💳 Payments</a>
+  </div>
+  <main>
+    <h2>Add Member</h2>
+    <form onsubmit="return addMember()">
+      <label>Name</label><input id="name">
+      <label>Age</label><input id="age" type="number">
+      <label>Phone (10 digits)</label><input id="phone" maxlength="10">
+      <label>Plan</label>
+      <select id="plan">
+        <option>Monthly</option>
+        <option>Quarterly</option>
+        <option>Yearly</option>
+      </select>
+      <label>Joining Date</label><input id="joinDate" type="date">
+      <div class="error" id="error"></div>
+      <button type="submit">Register</button>
+    </form>
+  </main>
+</div>
+<script src="app.js"></script>
+<script>
+  document.getElementById("joinDate").value = todayDate();
+
+  function addMember() {
+    const name = document.getElementById("name").value.trim();
+    const age = Number(document.getElementById("age").value);
+    const phone = document.getElementById("phone").value.trim();
+    const error = document.getElementById("error");
+
+    if (name == "" || age == 0) { error.textContent = "Please enter name and age."; return false; }
+    if (phone.length != 10 || isNaN(phone)) { error.textContent = "Phone must be 10 digits."; return false; }
+
+    const members = getMembers();
+    members.push({
+      id: Date.now(),
+      name: name,
+      age: age,
+      phone: phone,
+      plan: document.getElementById("plan").value,
+      joinDate: document.getElementById("joinDate").value,
+      paid: false
+    });
+    saveMembers(members);
+    alert("Member added!");
+    window.location.href = "members.html";
+    return false;
+  }
+</script>
+</body>
+</html>
