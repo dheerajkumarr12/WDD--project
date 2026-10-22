@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"><title>GymSphere - Dashboard</title><link rel="stylesheet" href="style.css"></head>
+<body>
+<div class="app">
+  <div class="sidebar">
+    <img src="logo.png" alt="GymSphere">
+    <a href="index.html" class="active">🏠 Dashboard</a>
+    <a href="register.html">📝 Add Member</a>
+    <a href="members.html">👥 All Members</a>
+    <a href="payments.html">💳 Payments</a>
+  </div>
+  <main>
+    <h2>Dashboard</h2>
+    <div class="cards">
+      <div class="card"><b id="total">0</b>Total Members</div>
+      <div class="card"><b id="active">0</b>Active</div>
+      <div class="card"><b id="expired">0</b>Expired</div>
+      <div class="card"><b id="money">₹0</b>Payments Collected</div>
+    </div>
+    <h2>Recent Members</h2>
+    <table>
+      <thead><tr><th>Name</th><th>Plan</th><th>Joined</th><th>Status</th></tr></thead>
+      <tbody id="rows"></tbody>
+    </table>
+  </main>
+</div>
+<script src="app.js"></script>
+<script>
+  const members = getMembers();
+  let active = 0, money = 0;
+  members.forEach(function (m) {
+    if (isActive(m)) active++;
+    if (m.paid) money += PRICE[m.plan];
+  });
+  document.getElementById("total").textContent = members.length;
+  document.getElementById("active").textContent = active;
+  document.getElementById("expired").textContent = members.length - active;
+  document.getElementById("money").textContent = "₹" + money;
+
+  // show the last 5 members
+  let html = "";
+  members.slice(-5).reverse().forEach(function (m) {
+    const s = isActive(m) ? "Active" : "Expired";
+    html += "<tr><td>" + m.name + "</td><td>" + m.plan + "</td><td>" + m.joinDate +
+            '</td><td class="' + s.toLowerCase() + '">' + s + "</td></tr>";
+  });
+  document.getElementById("rows").innerHTML = html || '<tr><td colspan="4">No members yet</td></tr>';
+</script>
+</body>
+</html>

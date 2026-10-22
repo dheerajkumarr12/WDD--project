@@ -1,0 +1,35 @@
+/* GymSphere - simple stylesheet */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: Arial, sans-serif; background: #2b3f9e; padding: 20px; font-size: 14px; }
+.app { display: flex; gap: 20px; background: #fff; border-radius: 16px; padding: 20px; max-width: 1200px; margin: auto; min-height: 90vh; }
+
+/* sidebar */
+.sidebar { width: 200px; background: #0d1b5e; border-radius: 14px; padding: 16px 10px; }
+.sidebar img { width: 100%; background: #fff; border-radius: 12px; padding: 6px; margin-bottom: 16px; }
+.sidebar a { display: block; color: #cfd6ff; text-decoration: none; padding: 10px 12px; border-radius: 8px; margin-bottom: 4px; }
+.sidebar a:hover, .sidebar a.active { background: #2b3f9e; color: #fff; }
+
+/* content */
+main { flex: 1; }
+h2 { color: #0d1b5e; margin-bottom: 16px; }
+.cards { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 20px; }
+.card { background: #eef1fb; border-radius: 12px; padding: 16px; flex: 1; min-width: 130px; text-align: center; }
+.card b { display: block; font-size: 24px; color: #0d1b5e; }
+
+/* table */
+table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+th, td { text-align: left; padding: 10px; border-bottom: 1px solid #e3e7f5; }
+th { background: #eef1fb; color: #0d1b5e; }
+
+/* form */
+form { max-width: 400px; }
+label { display: block; margin: 12px 0 4px; font-weight: bold; }
+input, select { width: 100%; padding: 9px; border: 1px solid #bbb; border-radius: 6px; }
+button { background: #0d1b5e; color: #fff; border: none; padding: 9px 18px; border-radius: 6px; cursor: pointer; margin-top: 14px; }
+button.red { background: #d33f49; margin: 0; padding: 5px 12px; }
+button.green { background: #1a8f5a; margin: 0; padding: 5px 12px; }
+.error { color: #d33f49; margin-top: 10px; }
+.paid { color: #1a8f5a; font-weight: bold; }
+.pending, .expired { color: #d33f49; font-weight: bold; }
+.active { color: #1a8f5a; font-weight: bold; }
+.sidebar a.active { color: #fff; font-weight: normal; }

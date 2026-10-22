@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"><title>GymSphere - Payments</title><link rel="stylesheet" href="style.css"></head>
+<body>
+<div class="app">
+  <div class="sidebar">
+    <img src="logo.png" alt="GymSphere">
+    <a href="index.html">🏠 Dashboard</a>
+    <a href="register.html">📝 Add Member</a>
+    <a href="members.html">👥 All Members</a>
+    <a href="payments.html" class="active">💳 Payments</a>
+  </div>
+  <main>
+    <h2>Payments</h2>
+    <div class="cards"><div class="card"><b id="money">₹0</b>Total Collected</div></div>
+    <table>
+      <thead><tr><th>Member</th><th>Plan</th><th>Amount</th><th>Status</th><th></th></tr></thead>
+      <tbody id="rows"></tbody>
+    </table>
+  </main>
+</div>
+<script src="app.js"></script>
+<script>
+  function showPayments() {
+    let html = "", money = 0;
+    getMembers().forEach(function (m) {
+      const amount = PRICE[m.plan];
+      if (m.paid) money += amount;
+      const s = m.paid ? "Paid" : "Pending";
+      const btn = m.paid ? "" : '<button class="green" onclick="markPaid(' + m.id + ')">Mark Paid</button>';
+      html += "<tr><td>" + m.name + "</td><td>" + m.plan + "</td><td>₹" + amount +
+              '</td><td class="' + s.toLowerCase() + '">' + s + "</td><td>" + btn + "</td></tr>";
+    });
+    document.getElementById("rows").innerHTML = html || '<tr><td colspan="5">No members yet</td></tr>';
+    document.getElementById("money").textContent = "₹" + money;
+  }
+
+  function markPaid(id) {
+    const members = getMembers();
+    members.forEach(function (m) { if (m.id == id) m.paid = true; });
+    saveMembers(members);
+    showPayments();
+  }
+  showPayments();
+</script>
+</body>
+</html>
